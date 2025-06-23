@@ -1,0 +1,30 @@
+# Build output
+/jobtracker/bin/
+/jobtracker/obj/
+jobtracker/publish/
+
+# User-specific
+*.user
+*.suo
+
+# VS Code
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Dotnet
+*.pdb
+*.exe
+*.dll
+*.log
+
+# NuGet
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Rider
+.idea/
