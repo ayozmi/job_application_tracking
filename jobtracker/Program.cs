@@ -2,6 +2,7 @@ using JobTracker;
 
 class Program
 {
+    [STAThread]
     static void Main(string[] args)
     {
         Console.WriteLine("Job Tracker Application Starting...");

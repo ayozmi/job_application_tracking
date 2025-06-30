@@ -4,24 +4,43 @@
 
 ---
 
+### ✨ New in v1.1
+🔍 View your saved applications directly in the app
+
+✏️ Edit and save changes to your Excel file from the UI
+
+🗑️ Delete applications directly from the app
+
+🔀 Sort applications by Company Name, Job Title, or Date Applied
+
+🎨 Minor UI/UX improvements
+
 ## ✅ Features
 
-- Input job application details via a simple GUI
-- Tracks:
-  - ✅ Company Name (required)
-  - 📝 Job Title (optional)
-  - ⚡ Easy Apply toggle (e.g., LinkedIn Easy Apply)
-  - 📅 Date Applied
-  - ⏳ Status (default: “Waiting for response”)
-- Saves data in `job_applications.xlsx` under the `Applications` sheet
-- Automatically creates the Excel file and header row if not found
-- Input validation and submission confirmation
+Input job application details via a simple GUI
+
+Tracks:
+
+   ✅ Company Name (required)
+
+   📝 Job Title (optional)
+  
+  ⚡ Easy Apply toggle (e.g., LinkedIn Easy Apply)
+  
+  📅 Date Applied
+  
+  ⏳ Status (default: “Waiting for response”)
+
+  Saves data in `job_applications.xlsx` under the `Applications` sheet
+  
+  Automatically creates the Excel file and header row if not found
+
 
 ---
 
 ## 🖥️ How to Use
 
-1. **Download the `.exe`** from the [Releases](https://github.com/ayozmi/job-application-tracking/releases) page.
+1. **Download the `.exe`** from the [Releases](https://github.com/ayozmi/job_application_tracking/releases/tag/v0.1) page.
 2. **Run the application** (no install needed).
 3. Fill out the form:
    - Company Name is required
@@ -33,13 +52,13 @@
 ---
 
 ## 🚧 Roadmap
-This is just version 0.1. Upcoming features may include:
-
-- Status update options (e.g., "Interview", "Rejected", etc.)
+This is just version 1.1. Upcoming features may include:
 
 - Tags/Notes per entry
 
 - Filters and search
+
+- More input fields
 
 - Analytics and charts
 
