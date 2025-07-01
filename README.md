@@ -48,7 +48,7 @@ Tracks:
 
 ## 🖥️ How to Use
 
-1. **Download the `.exe`** from the [Releases](https://github.com/ayozmi/job_application_tracking/releases/tag/v0.1) page.
+1. **Download the `.exe`** from the [Releases](https://github.com/ayozmi/job_application_tracking/releases/tag/v1.2) page.
 2. **Run the application** (no install needed).
 3. Fill out the form:
    - Company Name is required
