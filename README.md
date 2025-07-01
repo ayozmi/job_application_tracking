@@ -4,6 +4,14 @@
 
 ---
 
+### ✨ New in v1.2
+📝 New Job Title ComboBox with autocomplete and existing title suggestions
+
+🔄 Input fields reset automatically after saving an application
+
+🧹 Minor internal improvements and cleanup
+
+
 ### ✨ New in v1.1
 🔍 View your saved applications directly in the app
 

@@ -8,7 +8,7 @@ public partial class Form1 : Form
     // Make sure these fields are not null
     private TextBox? companyNameTextBox;
     private Button? submitButton;
-    private TextBox? jobTitleTextBox;
+    private ComboBox? jobTitleComboBox;
     private CheckBox? easyApplyCheckBox;
     private DateTimePicker? datePicker = null;
 
@@ -31,6 +31,7 @@ public partial class Form1 : Form
     private DataGridView? dataGridView;
     private Button? loadButton;
     private Button? saveButton;
+    private HashSet<string> jobTitles = new HashSet<string>();
 
     private void InitializeUI()
     {
@@ -47,16 +48,19 @@ public partial class Form1 : Form
         this.Controls.Add(companyNameLabel);
 
         // Job Title Input
-        jobTitleTextBox = new TextBox();
+        jobTitleComboBox = new ComboBox();
         Label jobTitleLabel = new Label();
         jobTitleLabel.Text = "Job Title (optional):";
         jobTitleLabel.AutoSize = true;
-        jobTitleTextBox.Name = "jobTitleTextBox";
+        jobTitleComboBox.Name = "jobTitleComboBox";
+        jobTitleComboBox.DropDownStyle = ComboBoxStyle.DropDown;
+        jobTitleComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+        jobTitleComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
         //TODO: Modify the location and size as needed later
-        jobTitleTextBox.Location = new Point(20, 70);
+        jobTitleComboBox.Location = new Point(20, 70);
         jobTitleLabel.Location = new Point(20, 50);
-        jobTitleTextBox.Size = new Size(200, 20);
-        this.Controls.Add(jobTitleTextBox);
+        jobTitleComboBox.Size = new Size(200, 20);
+        this.Controls.Add(jobTitleComboBox);
         this.Controls.Add(jobTitleLabel);
 
         // Easy Apply CheckBox
@@ -117,7 +121,7 @@ public partial class Form1 : Form
     {
         // Validate input. Company name must not be empty. Company Text Box is not null at this point hence the !.
         string companyName = companyNameTextBox!.Text;
-        string jobTitle = jobTitleTextBox!.Text;
+        string jobTitle = jobTitleComboBox!.Text;
         bool isEasyApply = easyApplyCheckBox?.Checked ?? false;
         if (string.IsNullOrWhiteSpace(companyName))
         {
@@ -150,10 +154,7 @@ public partial class Form1 : Form
             }
 
             MessageBox.Show("Application recorded successfully in " + filePath);
-            companyNameTextBox.Clear();
-            jobTitleTextBox.Clear();
-            easyApplyCheckBox!.Checked = false;
-            LoadExcelData();
+            ResetInputFields();
         }
         catch (Exception ex)
         {
@@ -164,7 +165,6 @@ public partial class Form1 : Form
     private void LoadExcelData()
     {
         string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "job_applications.xlsx");
-
         if (!File.Exists(filePath))
         {
             MessageBox.Show("No applications file found");
@@ -209,6 +209,16 @@ public partial class Form1 : Form
                 }
 
                 dataGridView!.DataSource = dataTable;
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    // Console.WriteLine(row["Job Title"]);
+                    string? title = row["Job Title"]?.ToString()?.Trim();
+                    if (!string.IsNullOrWhiteSpace(title))
+                        jobTitles.Add(title);
+                }
+                jobTitleComboBox?.Items.Clear();
+                jobTitleComboBox?.Items.AddRange(jobTitles.ToArray());
             }
             // Replace "Easy Apply" text column with ComboBox
             var easyApplyColumn = new DataGridViewComboBoxColumn
@@ -263,10 +273,10 @@ public partial class Form1 : Form
 
     private void ResizeDataGridView()
     {
-        Console.WriteLine("Resizing DataGridView...");
+        // Console.WriteLine("Resizing DataGridView...");
         if (dataGridView != null)
         {
-            Console.WriteLine("DataGridView is not null, resizing...");
+            // Console.WriteLine("DataGridView is not null, resizing...");
             // Resize DataGridView to fit content
             dataGridView.PerformLayout();
             dataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
@@ -332,6 +342,7 @@ public partial class Form1 : Form
             }
 
             MessageBox.Show("Changes saved successfully to Excel!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ResetInputFields();
         }
         catch (Exception ex)
         {
@@ -345,7 +356,7 @@ public partial class Form1 : Form
         if (dataGridView == null)
         {
             // Fallback if dataGridView is null, should not happen!
-            Console.WriteLine("DataGridView is null, cannot show editing control.");
+            // Console.WriteLine("DataGridView is null, cannot show editing control.");
             return;
         }
         var currentCell = dataGridView.CurrentCell;
@@ -386,5 +397,13 @@ public partial class Form1 : Form
         datePicker.Focus();
     }
 
+    private void ResetInputFields()
+    {
+        companyNameTextBox?.Clear();
+        jobTitleComboBox!.Text = string.Empty;
+        jobTitleComboBox.SelectedIndex = -1;
+        easyApplyCheckBox!.Checked = false;
+        LoadExcelData();
+    }
 
 }
